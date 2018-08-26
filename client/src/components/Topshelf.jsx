@@ -4,8 +4,7 @@ import LengthMenu from './LengthMenu.jsx';
 import GeneratePlan from './GeneratePlan.jsx';
 
 const Topshelf = (props) => (
-  <div>
-    <h1>Topshelf</h1>
+  <div id='Topshelf'>
     <SplitMenu />
     <LengthMenu />
     <GeneratePlan />
