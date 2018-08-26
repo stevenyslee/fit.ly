@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
+import Topshelf from './components/Topshelf.jsx';
+import Workout from './components/Workout.jsx';
 
 class App extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state  {
+		// this.state  {
 			
-		}
+		// }
 	}
 
 	componentDidMount() {
@@ -15,9 +17,12 @@ class App extends React.Component {
 	}
 
 	render() {
-		return (<div>
-			<h1>App Rendered</h1>
-		</div>)
+		return (
+		<div>
+			<Topshelf />
+			<Workout />
+		</div>
+		)
 	}
 }
 
