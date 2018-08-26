@@ -1,0 +1,23 @@
+#Topshelf {
+	display: flex;
+	width: 100%;
+}
+
+#SplitMenu {
+	flex-grow: 1;
+	text-align: center;
+}
+
+#LengthMenu {
+	flex-grow: 4;
+	text-align: center;
+}
+
+#GeneratePlan {
+	flex-grow: 1;
+	text-align: center;
+}
+
+#Workout {
+	text-align: center;
+}
