@@ -28,9 +28,9 @@ const Topshelf = (props) => (
   </Dropdown>
 
   <ButtonGroup>
-    <Button color="primary" onClick={() => props.onRadioBtnClick(2)} active={props.state.rSelected === 2}>Short</Button>
-    <Button color="primary" onClick={() => props.onRadioBtnClick(4)} active={props.state.rSelected === 4}>Medium</Button>
-    <Button color="primary" onClick={() => props.onRadioBtnClick(6)} active={props.state.rSelected === 6}>Long</Button>
+    <Button color="primary" onClick={() => props.onRadioBtnClick(2)} active={props.state.length === 2}>Short</Button>
+    <Button color="primary" onClick={() => props.onRadioBtnClick(4)} active={props.state.length === 4}>Medium</Button>
+    <Button color="primary" onClick={() => props.onRadioBtnClick(6)} active={props.state.length === 6}>Long</Button>
   </ButtonGroup>
 
   <Button color="primary" size="lg" active onClick={() => props.onGenerateWorkoutClick()}>Generate Workout</Button>{' '}
