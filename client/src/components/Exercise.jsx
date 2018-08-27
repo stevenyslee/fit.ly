@@ -2,7 +2,7 @@ import React from 'react';
 
 const Exercise = (props) => (
   <div>
-    <h4>Exercise</h4>
+    <h4>{props.exercise.exercise}</h4>
   </div>
 )
 
