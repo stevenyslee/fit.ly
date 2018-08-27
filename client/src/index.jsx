@@ -39,21 +39,21 @@ class App extends React.Component {
 
   onGenerateWorkoutClick() {
     if (this.state.length !== undefined && this.state.split !== undefined) {
-      $.get( `http://localhost:3000/${this.state.split}/${this.state.length}`, (data) => {
-        console.log(data);
+      $.get( `http://localhost:3000/${this.state.split}/${this.state.length}`, (exercises) => {
+      this.setState({ exercises });
       })
       .fail(function() {
         console.log( "error" );
       });
     } else {
-      console.log('Error!');
+      console.log('Please select Split and Length!');
       console.log(this.state.length);
       console.log(this.state.split);
     }
   }
 
   componentDidMount() {
-    console.log('Component Mounted');
+    console.log('this.state.exercises');
   }
 
   render() {
