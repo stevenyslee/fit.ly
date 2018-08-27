@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import Topshelf from './components/Topshelf.jsx';
 import Workout from './components/Workout.jsx';
 
@@ -10,8 +9,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       splitDropdownOpen: false,
-      rSelected: undefined,
-      tSelected: undefined,
+      length: undefined,
+      split: undefined,
       exercises: []
     };
 
@@ -27,25 +26,29 @@ class App extends React.Component {
     }));
   }
 
-  onDropDownClick(tSelected) {
-    this.setState({ tSelected });
-    console.log(this.state.tSelected);
+  onDropDownClick(split) {
+    this.setState({ split });
+    console.log(this.state.split);
   }
 
-  onRadioBtnClick(rSelected) {
-    this.setState({ rSelected });
+  onRadioBtnClick(length) {
+    this.setState({ length });
     // asynchronous console logging
-    console.log(this.state.rSelected);
+    console.log(this.state.length);
   }
 
   onGenerateWorkoutClick() {
-    if (this.state.rSelected !== undefined && this.state.tSelected !== undefined) {
-      console.log(this.state.rSelected);
-      console.log(this.state.tSelected);
+    if (this.state.length !== undefined && this.state.split !== undefined) {
+      $.get( `http://localhost:3000/${this.state.split}/${this.state.length}`, (data) => {
+        console.log(data);
+      })
+      .fail(function() {
+        console.log( "error" );
+      });
     } else {
       console.log('Error!');
-      console.log(this.state.rSelected);
-      console.log(this.state.tSelected);
+      console.log(this.state.length);
+      console.log(this.state.split);
     }
   }
 
