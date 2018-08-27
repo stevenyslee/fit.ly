@@ -95,20 +95,118 @@ const getWorkout = (split, length, cb) => {
     }
   } else if (split === 'Arms') {
     if (length === '2') {
+      let bicepsQuery = `SELECT * FROM biceps WHERE type = 'P' ORDER BY random() LIMIT 1`
+      let tricepsQuery = `SELECT * FROM triceps WHERE type = 'P' ORDER BY random() LIMIT 1`
 
+      client.query(bicepsQuery, (err, res) => {
+        if (err) console.log(err);
+        exercises = exercises.concat(res.rows);
+        client.query(tricepsQuery, (err, res) => {
+          if (err) console.log(err);
+          exercises = exercises.concat(res.rows);
+          cb(exercises);
+        });
+      });
     } else if (length === '4') {
+      let bicepsQuery1 = `SELECT * FROM biceps WHERE type = 'P' ORDER BY random() LIMIT 1`
+      let tricepsQuery1 = `SELECT * FROM triceps WHERE type = 'P' ORDER BY random() LIMIT 1`
+      let bicepsQuery2 = `SELECT * FROM biceps WHERE type = 'S' ORDER BY random() LIMIT 1`
+      let tricepsQuery2 = `SELECT * FROM triceps WHERE type = 'S' ORDER BY random() LIMIT 1`
 
+      client.query(bicepsQuery1, (err, res) => {
+        if (err) console.log(err);
+        exercises = exercises.concat(res.rows);
+        client.query(tricepsQuery1, (err, res) => {
+          if (err) console.log(err);
+          exercises = exercises.concat(res.rows);
+          client.query(bicepsQuery2, (err, res) => {
+            if (err) console.log(err);
+            exercises = exercises.concat(res.rows);
+            client.query(tricepsQuery2, (err, res) => {
+              if (err) console.log(err);
+              exercises = exercises.concat(res.rows);
+              cb(exercises);
+            });
+          });
+        });
+      });
     } else {
-      
+      let bicepsQuery1 = `SELECT * FROM biceps WHERE type = 'P' ORDER BY random() LIMIT 1`
+      let tricepsQuery1 = `SELECT * FROM triceps WHERE type = 'P' ORDER BY random() LIMIT 1`
+      let bicepsQuery2 = `SELECT * FROM biceps WHERE type = 'S' ORDER BY random() LIMIT 1`
+      let tricepsQuery2 = `SELECT * FROM triceps WHERE type = 'S' ORDER BY random() LIMIT 1`
+      let bicepsQuery3 = `SELECT * FROM biceps WHERE type = 'A' ORDER BY random() LIMIT 1`
+      let tricepsQuery3 = `SELECT * FROM triceps WHERE type = 'A' ORDER BY random() LIMIT 1`
+
+      client.query(bicepsQuery1, (err, res) => {
+        if (err) console.log(err);
+        exercises = exercises.concat(res.rows);
+        client.query(tricepsQuery1, (err, res) => {
+          if (err) console.log(err);
+          exercises = exercises.concat(res.rows);
+          client.query(bicepsQuery2, (err, res) => {
+            if (err) console.log(err);
+            exercises = exercises.concat(res.rows);
+            client.query(tricepsQuery2, (err, res) => {
+              if (err) console.log(err);
+              exercises = exercises.concat(res.rows);
+              client.query(bicepsQuery3, (err, res) => {
+                if (err) console.log(err);
+                exercises = exercises.concat(res.rows);
+                client.query(tricepsQuery3, (err, res) => {
+                  if (err) console.log(err);
+                  exercises = exercises.concat(res.rows);
+                  cb(exercises);
+                });
+              });
+            });
+          });
+        });
+      });
     }
   } else {
+    // Chest, Shoulders, Legs, Back for 2, 4, 6 
+    if (length === '2') {
+      let query = `SELECT * FROM ${split} WHERE type = 'P' ORDER BY random() LIMIT 2`
 
+      client.query(query, (err, res) => {
+        if (err) console.log(err);
+        exercises = exercises.concat(res.rows);
+        cb(exercises);
+      });
+    } else if (length === '4') {
+      let query1 = `SELECT * FROM ${split} WHERE type = 'P' ORDER BY random() LIMIT 2`
+      let query2 = `SELECT * FROM ${split} WHERE type = 'S' ORDER BY random() LIMIT 2`
+
+      client.query(query1, (err, res) => {
+        if (err) console.log(err);
+        exercises = exercises.concat(res.rows);
+        client.query(query2, (err, res) => {
+          if (err) console.log(err);
+          exercises = exercises.concat(res.rows);
+          cb(exercises);
+        });
+      });
+    } else {
+      let query1 = `SELECT * FROM ${split} WHERE type = 'P' ORDER BY random() LIMIT 2`
+      let query2 = `SELECT * FROM ${split} WHERE type = 'S' ORDER BY random() LIMIT 2`
+      let query3 = `SELECT * FROM ${split} WHERE type = 'A' ORDER BY random() LIMIT 2`
+
+      client.query(query1, (err, res) => {
+        if (err) console.log(err);
+        exercises = exercises.concat(res.rows);
+        client.query(query2, (err, res) => {
+          if (err) console.log(err);
+          exercises = exercises.concat(res.rows);
+          client.query(query3, (err, res) => {
+            if (err) console.log(err);
+            exercises = exercises.concat(res.rows);
+            cb(exercises);
+          });
+        });
+      });
+    }
   }
-  // let query = `SELECT avatar, username, backer, comment, date_prod FROM comments WHERE comments.projects_id = ${projects_id}`;
-  // client.query(query, (err, res) => {
-  //   if (err) console.log(err);
-  //   cb(res.rows);
-  // });
 };
 
 module.exports = {
