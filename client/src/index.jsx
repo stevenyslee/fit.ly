@@ -9,11 +9,16 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      splitDropdownOpen: false
+      splitDropdownOpen: false,
+      rSelected: undefined,
+      tSelected: undefined,
+      exercises: []
     };
 
     this.toggleSplit = this.toggleSplit.bind(this);
+    this.onDropDownClick = this.onDropDownClick.bind(this);
     this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
+    this.onGenerateWorkoutClick = this.onGenerateWorkoutClick.bind(this);
   }
 
   toggleSplit() {
@@ -22,11 +27,26 @@ class App extends React.Component {
     }));
   }
 
+  onDropDownClick(tSelected) {
+    this.setState({ tSelected });
+    console.log(this.state.tSelected);
+  }
+
   onRadioBtnClick(rSelected) {
     this.setState({ rSelected });
     // asynchronous console logging
     console.log(this.state.rSelected);
+  }
 
+  onGenerateWorkoutClick() {
+    if (this.state.rSelected !== undefined && this.state.tSelected !== undefined) {
+      console.log(this.state.rSelected);
+      console.log(this.state.tSelected);
+    } else {
+      console.log('Error!');
+      console.log(this.state.rSelected);
+      console.log(this.state.tSelected);
+    }
   }
 
   componentDidMount() {
@@ -37,11 +57,15 @@ class App extends React.Component {
     return (
     <div>
       <Topshelf
+        onDropDownClick={this.onDropDownClick}
         toggleSplit={this.toggleSplit}
         onRadioBtnClick={this.onRadioBtnClick}
+        onGenerateWorkoutClick={this.onGenerateWorkoutClick}
         state={this.state} 
       />
-      <Workout />
+      <Workout
+        state={this.state}
+      />
     </div>
     )
   }
