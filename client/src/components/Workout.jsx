@@ -1,10 +1,10 @@
 import React from 'react';
-import Exercises from './Exercises.jsx';
+import Exercise from './Exercise.jsx';
 
 const Workout = (props) => (
   <div id='Workout'>
     <h2>Workout</h2>
-    {[0, 1, 2, 3, 4].map(item => <Exercises key={item} />)}
+    {props.state.exercises.map(item => <Exercise key={item} />)}
   </div>
 )
 
