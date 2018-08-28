@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
+import FadeIn from 'react-fade-in';
 import Topshelf from './components/Topshelf.jsx';
 import Workout from './components/Workout.jsx';
 
@@ -28,13 +29,10 @@ class App extends React.Component {
 
   onDropDownClick(split) {
     this.setState({ split });
-    console.log(this.state.split);
   }
 
   onRadioBtnClick(length) {
     this.setState({ length });
-    // asynchronous console logging
-    console.log(this.state.length);
   }
 
   onGenerateWorkoutClick() {
@@ -53,12 +51,13 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    console.log('this.state.exercises');
+    console.log('Component Mounted');
   }
 
   render() {
     return (
-    <div>
+    <FadeIn>
+      <h1>Fitness Generator</h1>
       <Topshelf
         onDropDownClick={this.onDropDownClick}
         toggleSplit={this.toggleSplit}
@@ -66,10 +65,8 @@ class App extends React.Component {
         onGenerateWorkoutClick={this.onGenerateWorkoutClick}
         state={this.state} 
       />
-      <Workout
-        state={this.state}
-      />
-    </div>
+      <Workout state={this.state} />
+    </FadeIn>
     )
   }
 }
