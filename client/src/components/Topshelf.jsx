@@ -6,7 +6,7 @@ import { Button, ButtonGroup, Dropdown, DropdownToggle, DropdownMenu, DropdownIt
 
 const Topshelf = (props) => (
   <div id='Topshelf'>
-  <Dropdown isOpen={props.state.splitDropdownOpen} toggle={props.toggleSplit}>
+  <Dropdown id='SplitMenu' isOpen={props.state.splitDropdownOpen} toggle={props.toggleSplit}>
   <DropdownToggle caret color="primary">
     Split
   </DropdownToggle>
@@ -27,13 +27,13 @@ const Topshelf = (props) => (
   </DropdownMenu>
   </Dropdown>
 
-  <ButtonGroup>
+  <ButtonGroup id='LengthMenu'>
     <Button color="primary" onClick={() => props.onRadioBtnClick(2)} active={props.state.length === 2}>Short</Button>
     <Button color="primary" onClick={() => props.onRadioBtnClick(4)} active={props.state.length === 4}>Medium</Button>
     <Button color="primary" onClick={() => props.onRadioBtnClick(6)} active={props.state.length === 6}>Long</Button>
   </ButtonGroup>
 
-  <Button color="primary" size="lg" active onClick={() => props.onGenerateWorkoutClick()}>Generate Workout</Button>{' '}
+  <Button id='GeneratePlan' color="primary" size="lg" active onClick={() => props.onGenerateWorkoutClick()}>Generate Workout</Button>{' '}
   </div>
 )
 
