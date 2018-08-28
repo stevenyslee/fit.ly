@@ -4,7 +4,6 @@ import FadeIn from 'react-fade-in';
 const Exercise = (props) => {
   if (props.exercise.type === 'P') {
     var type = 'Primary';
-    console.log(type);
   } else if (props.exercise.type === 'S') {
     var type = 'Secondary';
   } else if (props.exercise.type === 'A') {

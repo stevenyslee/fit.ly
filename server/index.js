@@ -11,7 +11,6 @@ app.use(express.static(__dirname + '/../client/dist'));
 
 app.get('/:split/:length', (req, res) => {
 	const { params } = req;
-	console.log(params);
   db.getWorkout(params.split, params.length, (results) => (res.send(results)));
 });
 

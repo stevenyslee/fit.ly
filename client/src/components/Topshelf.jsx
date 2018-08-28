@@ -1,8 +1,5 @@
 import React from 'react';
 import { Button, ButtonGroup, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-// import SplitMenu from './SplitMenu.jsx';
-// import LengthMenu from './LengthMenu.jsx';
-// import GeneratePlan from './GeneratePlan.jsx';
 
 const Topshelf = (props) => (
   <div id='Topshelf'>
