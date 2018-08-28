@@ -16,8 +16,39 @@
 #GeneratePlan {
 	flex-grow: 1;
 	text-align: center;
+	margin-right: 10px;
 }
 
 #Workout {
 	text-align: center;
+}
+
+h1 {
+	text-align: center;
+}
+
+img {
+  max-width:230px;
+  max-height:95px;
+  width: auto;
+  height: auto;
+}
+
+span {
+	flex-grow: 2;
+}
+
+iframe {
+	width: 45%;
+}
+
+.Exercise {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-style: solid;
+	border-color: black;
+	border-radius: 30px;
+	margin: 10px;
+	overflow: hidden;
 }
