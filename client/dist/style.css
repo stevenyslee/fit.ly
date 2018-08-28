@@ -1,0 +1,65 @@
+h1 {
+	text-align: center;
+	color: #ffffffe6;
+}
+
+h2 {
+	color: #ffffffe6;
+}
+
+img {
+  max-width:230px;
+  max-height:95px;
+  width: auto;
+  height: auto;
+}
+
+span {
+	width: 27%;
+}
+
+iframe {
+	width: 45%;
+}
+
+body{
+    background-image: url("http://www.iphone2lovely.com/wp-content/uploads/2016/05/weight-lifting-wallpaper.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+#Topshelf {
+	display: flex;
+	width: 100%;
+}
+
+#SplitMenu {
+	flex-grow: 1;
+	text-align: center;
+}
+
+#LengthMenu {
+	flex-grow: 4;
+	text-align: center;
+}
+
+#GeneratePlan {
+	flex-grow: 1;
+	text-align: center;
+	margin-right: 10px;
+}
+
+#Workout {
+	text-align: center;
+}
+
+.Exercise {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 0px 30px 30px 0px;
+	margin-right: 10px;
+	margin-left: 10px;
+	overflow: hidden;
+	background-color: hsla(0, 0%, 0%, 0.45);
+}
