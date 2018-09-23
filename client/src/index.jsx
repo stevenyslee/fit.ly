@@ -53,7 +53,7 @@ class App extends React.Component {
   render() {
     return (
     <FadeIn>
-      <h1>Fitness Generator</h1>
+      <h1>Fit.ly</h1>
       <Topshelf
         onDropDownClick={this.onDropDownClick}
         toggleSplit={this.toggleSplit}
