@@ -10,7 +10,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       splitDropdownOpen: false,
-      length: undefined,
+      duration: undefined,
       split: undefined,
       exercises: []
     };
@@ -31,22 +31,20 @@ class App extends React.Component {
     this.setState({ split });
   }
 
-  onRadioBtnClick(length) {
-    this.setState({ length });
+  onRadioBtnClick(duration) {
+    this.setState({ duration });
   }
 
   onGenerateWorkoutClick() {
-    if (this.state.length !== undefined && this.state.split !== undefined) {
-      $.get( `http://localhost:3000/${this.state.split}/${this.state.length}`, (exercises) => {
+    if (this.state.duration !== undefined && this.state.split !== undefined) {
+      $.get( `http://localhost:3000/${this.state.split}/${this.state.duration}`, (exercises) => {
       this.setState({ exercises });
       })
       .fail(function() {
         console.log( "error" );
       });
     } else {
-      console.log('Please select Split and Length!');
-      console.log(this.state.length);
-      console.log(this.state.split);
+      alert('Please select Split and Duration!');
     }
   }
 
@@ -59,9 +57,11 @@ class App extends React.Component {
         toggleSplit={this.toggleSplit}
         onRadioBtnClick={this.onRadioBtnClick}
         onGenerateWorkoutClick={this.onGenerateWorkoutClick}
-        state={this.state} 
+        splitDropdownOpen={this.state.splitDropdownOpen}
+        split={this.state.split}
+        duration={this.state.duration}
       />
-      <Workout state={this.state} />
+      <Workout exercises={this.state.exercises} />
     </FadeIn>
     )
   }
