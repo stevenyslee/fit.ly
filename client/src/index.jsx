@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import $ from 'jquery';
+import axios from 'axios';
 import FadeIn from 'react-fade-in';
 import Topshelf from './components/Topshelf.jsx';
 import Workout from './components/Workout.jsx';
@@ -37,11 +37,13 @@ class App extends React.Component {
 
   onGenerateWorkoutClick() {
     if (this.state.duration !== undefined && this.state.split !== undefined) {
-      $.get( `http://localhost:3000/${this.state.split}/${this.state.duration}`, (exercises) => {
-      this.setState({ exercises });
+      axios.get( `/${this.state.split}/${this.state.duration}`)
+      .then((res) => {
+        let exercises = res.data;
+        this.setState({ exercises });
       })
-      .fail(function() {
-        console.log( "error" );
+      .catch((err) => {
+        console.log(err);
       });
     } else {
       alert('Please select Split and Duration!');
