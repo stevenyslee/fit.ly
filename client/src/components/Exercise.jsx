@@ -19,7 +19,7 @@ const Exercise = (props) => {
         <h2>{props.exercise.exercise}</h2>
         <img src={props.exercise.picture} alt={props.exercise.exercise} />
       </span>
-      <iframe width="560" height="315" src={props.exercise.video} frameBorder="0" allow="autoplay; encrypted-media" scrolling="no" allowFu llScreen></iframe>
+      <iframe width="560" height="315" src={props.exercise.video} frameBorder="0" allow="autoplay; encrypted-media" scrolling="no" allowFullScreen></iframe>
     </div>
 </FadeIn>);
 }
