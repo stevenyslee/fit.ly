@@ -1,37 +1,45 @@
 import React from 'react';
 import { Button, ButtonGroup, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
-const Topshelf = (props) => (
-  <div id='Topshelf'>
-  <Dropdown id='SplitMenu' isOpen={props.state.splitDropdownOpen} toggle={props.toggleSplit}>
-  <DropdownToggle caret color="primary">
-    Split
-  </DropdownToggle>
-  <DropdownMenu>
-    <DropdownItem onClick={() => props.onDropDownClick('Chest')}>Chest</DropdownItem>
-    <DropdownItem divider/>
-    <DropdownItem onClick={() => props.onDropDownClick('Shoulders')}>Shoulders</DropdownItem>
-    <DropdownItem divider/>
-    <DropdownItem onClick={() => props.onDropDownClick('Back')}>Back</DropdownItem>
-    <DropdownItem divider/>
-    <DropdownItem onClick={() => props.onDropDownClick('Legs')}>Legs</DropdownItem>
-    <DropdownItem divider/>
-    <DropdownItem onClick={() => props.onDropDownClick('Arms')}>Arms</DropdownItem>
-    <DropdownItem divider/>
-    <DropdownItem onClick={() => props.onDropDownClick('Abs')}>Abs</DropdownItem>
-    <DropdownItem divider/>
-    <DropdownItem onClick={() => props.onDropDownClick('Fullbody')}>Fullbody</DropdownItem>
-  </DropdownMenu>
-  </Dropdown>
+const Topshelf = ({ onDropDownClick, toggleSplit, onRadioBtnClick, onGenerateWorkoutClick, splitDropdownOpen, split, duration }) => {
+  let dropdownName = 'Split';
 
-  <ButtonGroup id='LengthMenu'>
-    <Button color="primary" onClick={() => props.onRadioBtnClick(2)} active={props.state.length === 2}>Short</Button>
-    <Button color="primary" onClick={() => props.onRadioBtnClick(4)} active={props.state.length === 4}>Medium</Button>
-    <Button color="primary" onClick={() => props.onRadioBtnClick(6)} active={props.state.length === 6}>Long</Button>
-  </ButtonGroup>
+  if (split) {
+    dropdownName = split;
+  }
 
-  <Button id='GeneratePlan' color="primary" size="lg" active onClick={() => props.onGenerateWorkoutClick()}>Generate Workout</Button>{' '}
-  </div>
-)
+  return (
+    <div id='Topshelf'>
+      <Dropdown id='SplitMenu' isOpen={splitDropdownOpen} toggle={toggleSplit}>
+      <DropdownToggle caret color="primary">
+        {dropdownName}
+      </DropdownToggle>
+      <DropdownMenu>
+        <DropdownItem onClick={() => onDropDownClick('Chest')}>Chest</DropdownItem>
+        <DropdownItem divider/>
+        <DropdownItem onClick={() => onDropDownClick('Shoulders')}>Shoulders</DropdownItem>
+        <DropdownItem divider/>
+        <DropdownItem onClick={() => onDropDownClick('Back')}>Back</DropdownItem>
+        <DropdownItem divider/>
+        <DropdownItem onClick={() => onDropDownClick('Legs')}>Legs</DropdownItem>
+        <DropdownItem divider/>
+        <DropdownItem onClick={() => onDropDownClick('Arms')}>Arms</DropdownItem>
+        <DropdownItem divider/>
+        <DropdownItem onClick={() => onDropDownClick('Abs')}>Abs</DropdownItem>
+        <DropdownItem divider/>
+        <DropdownItem onClick={() => onDropDownClick('Fullbody')}>Fullbody</DropdownItem>
+      </DropdownMenu>
+      </Dropdown>
+
+      <ButtonGroup id='LengthMenu'>
+        <Button color="primary" onClick={() => onRadioBtnClick(2)} active={duration === 2}>Short</Button>
+        <Button color="primary" onClick={() => onRadioBtnClick(4)} active={duration === 4}>Medium</Button>
+        <Button color="primary" onClick={() => onRadioBtnClick(6)} active={duration === 6}>Long</Button>
+      </ButtonGroup>
+
+      <Button id='GeneratePlan' color="primary" size="lg" active onClick={() => onGenerateWorkoutClick()}>Generate Workout</Button>{' '}
+    </div>
+  );
+}
 
 export default Topshelf;
