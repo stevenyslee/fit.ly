@@ -52,10 +52,10 @@ CREATE TABLE Abs (
   VIDEO VARCHAR
 );
 
-\COPY Chest (EXERCISE, PICTURE, VIDEO, TYPE) FROM '/Users/Steven/fitness-generator/data/Chest.csv' WITH DELIMITER AS ',' CSV HEADER;
-\COPY Shoulders (EXERCISE, PICTURE, VIDEO, TYPE) FROM '/Users/Steven/fitness-generator/data/Shoulders.csv' WITH DELIMITER AS ',' CSV HEADER;
-\COPY Legs (EXERCISE, PICTURE, VIDEO, TYPE) FROM '/Users/Steven/fitness-generator/data/Legs.csv' WITH DELIMITER AS ',' CSV HEADER;
-\COPY Back (EXERCISE, PICTURE, VIDEO, TYPE) FROM '/Users/Steven/fitness-generator/data/Back.csv' WITH DELIMITER AS ',' CSV HEADER;
-\COPY Biceps (EXERCISE, PICTURE, VIDEO, TYPE) FROM '/Users/Steven/fitness-generator/data/Biceps.csv' WITH DELIMITER AS ',' CSV HEADER;
-\COPY Triceps (EXERCISE, PICTURE, VIDEO, TYPE) FROM '/Users/Steven/fitness-generator/data/Triceps.csv' WITH DELIMITER AS ',' CSV HEADER;
-\COPY Abs (EXERCISE, PICTURE, VIDEO) FROM '/Users/Steven/fitness-generator/data/Abs.csv' WITH DELIMITER AS ',' CSV HEADER;
+\COPY Chest (EXERCISE, PICTURE, VIDEO, TYPE) FROM '/Users/stevenlee/Github/fit.ly/data/Chest.csv' WITH DELIMITER AS ',' CSV HEADER;
+\COPY Shoulders (EXERCISE, PICTURE, VIDEO, TYPE) FROM '/Users/stevenlee/Github/fit.ly/data/Shoulders.csv' WITH DELIMITER AS ',' CSV HEADER;
+\COPY Legs (EXERCISE, PICTURE, VIDEO, TYPE) FROM '/Users/stevenlee/Github/fit.ly/data/Legs.csv' WITH DELIMITER AS ',' CSV HEADER;
+\COPY Back (EXERCISE, PICTURE, VIDEO, TYPE) FROM '/Users/stevenlee/Github/fit.ly/data/Back.csv' WITH DELIMITER AS ',' CSV HEADER;
+\COPY Biceps (EXERCISE, PICTURE, VIDEO, TYPE) FROM '/Users/stevenlee/Github/fit.ly/data/Biceps.csv' WITH DELIMITER AS ',' CSV HEADER;
+\COPY Triceps (EXERCISE, PICTURE, VIDEO, TYPE) FROM '/Users/stevenlee/Github/fit.ly/data/Triceps.csv' WITH DELIMITER AS ',' CSV HEADER;
+\COPY Abs (EXERCISE, PICTURE, VIDEO) FROM '/Users/stevenlee/Github/fit.ly/data/Abs.csv' WITH DELIMITER AS ',' CSV HEADER;
