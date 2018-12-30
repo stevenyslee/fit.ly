@@ -2,11 +2,7 @@ import React from 'react';
 import { Button, ButtonGroup, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 const Topshelf = ({ onDropDownClick, toggleSplit, onRadioBtnClick, onGenerateWorkoutClick, splitDropdownOpen, split, duration }) => {
-  let dropdownName = 'Split';
-
-  if (split) {
-    dropdownName = split;
-  }
+  let dropdownName = split || 'Split';
 
   return (
     <div id='Topshelf'>
