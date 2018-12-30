@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import FadeIn from 'react-fade-in';
+import { throttle, debounce } from 'throttle-debounce';
 import Topshelf from './components/Topshelf.jsx';
 import Workout from './components/Workout.jsx';
 
@@ -18,7 +19,8 @@ class App extends React.Component {
     this.toggleSplit = this.toggleSplit.bind(this);
     this.onDropDownClick = this.onDropDownClick.bind(this);
     this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
-    this.onGenerateWorkoutClick = this.onGenerateWorkoutClick.bind(this);
+    this.onGenerateWorkoutClick = this.onGenerateWorkoutClick.bind(this)
+    this._onGenerateWorkoutClick = throttle(300, this.onGenerateWorkoutClick);
   }
 
   toggleSplit() {
@@ -37,6 +39,7 @@ class App extends React.Component {
 
   onGenerateWorkoutClick() {
     if (this.state.duration !== undefined && this.state.split !== undefined) {
+      console.log('Request');
       axios.get( `/${this.state.split}/${this.state.duration}`)
       .then((res) => {
         let exercises = res.data;
@@ -58,7 +61,7 @@ class App extends React.Component {
         onDropDownClick={this.onDropDownClick}
         toggleSplit={this.toggleSplit}
         onRadioBtnClick={this.onRadioBtnClick}
-        onGenerateWorkoutClick={this.onGenerateWorkoutClick}
+        onGenerateWorkoutClick={this._onGenerateWorkoutClick}
         splitDropdownOpen={this.state.splitDropdownOpen}
         split={this.state.split}
         duration={this.state.duration}
