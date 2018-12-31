@@ -1,4 +1,3 @@
-const { Client } = require('pg');
 const pgp = require('pg-promise')();
 const { user, host, database, password, port } = require('./../config.js');
 
@@ -10,26 +9,10 @@ const db = pgp({
   port
 });
 
-const client = new Client({ 
-  user,
-  host, 
-  database,
-  password, 
-  port
-});
-
-client.connect();
-
-client.on('error', (err) => {
-  console.error('An idle client has experienced an error', err.stack);
-});
-
 const getWorkout = (split, length, cb) => {
-  let exercises = [];
-
   if (split === 'Abs') {
     db.tx(t => {
-      const q1 = t.many(`SELECT * FROM abs ORDER BY random() LIMIT $1`, [length]);
+      const q1 = t.many(`SELECT * FROM abs ORDER BY random() LIMIT $1`, length);
       return t.batch([q1]);
     })
     .then(([data]) => {
@@ -129,43 +112,43 @@ const getWorkout = (split, length, cb) => {
   } else {
     // Chest, Shoulders, Legs, Back for 2, 4, 6 
     if (length === '2') {
-      let query = `SELECT * FROM ${split} WHERE type = 'P' ORDER BY random() LIMIT 2`
-
-      client.query(query, (err, res) => {
-        if (err) console.log(err);
-        exercises = exercises.concat(res.rows);
-        cb(exercises);
+      db.tx(t => {
+        const q1 = t.many(`SELECT * FROM $1~ WHERE type = 'P' ORDER BY random() LIMIT 2`, split.toLowerCase());
+        return t.batch([q1]);
+      })
+      .then(([data]) => {
+        console.log(data);
+        cb(data);
+      })
+      .catch(error => {
+        console.log(error);
       });
     } else if (length === '4') {
-      let query1 = `SELECT * FROM ${split} WHERE type = 'P' ORDER BY random() LIMIT 2`
-      let query2 = `SELECT * FROM ${split} WHERE type = 'S' ORDER BY random() LIMIT 2`
-
-      client.query(query1, (err, res) => {
-        if (err) console.log(err);
-        exercises = exercises.concat(res.rows);
-        client.query(query2, (err, res) => {
-          if (err) console.log(err);
-          exercises = exercises.concat(res.rows);
-          cb(exercises);
-        });
+      db.tx(t => {
+        const q1 = t.many(`SELECT * FROM $1~ WHERE type = 'P' ORDER BY random() LIMIT 2`, split.toLowerCase());
+        const q2 = t.many(`SELECT * FROM $1~ WHERE type = 'S' ORDER BY random() LIMIT 2`, split.toLowerCase());
+        return t.batch([q1, q2]);
+      })
+      .then((data) => {
+        data = [].concat(...data);
+        cb(data);
+      })
+      .catch(error => {
+        console.log(error);
       });
     } else {
-      let query1 = `SELECT * FROM ${split} WHERE type = 'P' ORDER BY random() LIMIT 2`
-      let query2 = `SELECT * FROM ${split} WHERE type = 'S' ORDER BY random() LIMIT 2`
-      let query3 = `SELECT * FROM ${split} WHERE type = 'A' ORDER BY random() LIMIT 2`
-
-      client.query(query1, (err, res) => {
-        if (err) console.log(err);
-        exercises = exercises.concat(res.rows);
-        client.query(query2, (err, res) => {
-          if (err) console.log(err);
-          exercises = exercises.concat(res.rows);
-          client.query(query3, (err, res) => {
-            if (err) console.log(err);
-            exercises = exercises.concat(res.rows);
-            cb(exercises);
-          });
-        });
+      db.tx(t => {
+        const q1 = t.many(`SELECT * FROM $1~ WHERE type = 'P' ORDER BY random() LIMIT 2`, split.toLowerCase());
+        const q2 = t.many(`SELECT * FROM $1~ WHERE type = 'S' ORDER BY random() LIMIT 2`, split.toLowerCase());
+        const q3 = t.many(`SELECT * FROM $1~ WHERE type = 'A' ORDER BY random() LIMIT 2`, split.toLowerCase());
+        return t.batch([q1, q2, q3]);
+      })
+      .then((data) => {
+        data = [].concat(...data);
+        cb(data);
+      })
+      .catch(error => {
+        console.log(error);
       });
     }
   }
