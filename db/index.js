@@ -84,73 +84,46 @@ const getWorkout = (split, length, cb) => {
     }
   } else if (split === 'Arms') {
     if (length === '2') {
-      let bicepsQuery = `SELECT * FROM biceps WHERE type = 'P' ORDER BY random() LIMIT 1`
-      let tricepsQuery = `SELECT * FROM triceps WHERE type = 'P' ORDER BY random() LIMIT 1`
-
-      client.query(bicepsQuery, (err, res) => {
-        if (err) console.log(err);
-        exercises = exercises.concat(res.rows);
-        client.query(tricepsQuery, (err, res) => {
-          if (err) console.log(err);
-          exercises = exercises.concat(res.rows);
-          cb(exercises);
-        });
+      db.tx(t => {
+        const q1 = t.one(`SELECT * FROM biceps WHERE type = 'P' ORDER BY random() LIMIT 1`);
+        const q2 = t.one(`SELECT * FROM triceps WHERE type = 'P' ORDER BY random() LIMIT 1`);
+        return t.batch([q1, q2]);
+      })
+      .then((data) => {
+        cb(data);
+      })
+      .catch(error => {
+        console.log(error);
       });
     } else if (length === '4') {
-      let bicepsQuery1 = `SELECT * FROM biceps WHERE type = 'P' ORDER BY random() LIMIT 1`
-      let tricepsQuery1 = `SELECT * FROM triceps WHERE type = 'P' ORDER BY random() LIMIT 1`
-      let bicepsQuery2 = `SELECT * FROM biceps WHERE type = 'S' ORDER BY random() LIMIT 1`
-      let tricepsQuery2 = `SELECT * FROM triceps WHERE type = 'S' ORDER BY random() LIMIT 1`
-
-      client.query(bicepsQuery1, (err, res) => {
-        if (err) console.log(err);
-        exercises = exercises.concat(res.rows);
-        client.query(tricepsQuery1, (err, res) => {
-          if (err) console.log(err);
-          exercises = exercises.concat(res.rows);
-          client.query(bicepsQuery2, (err, res) => {
-            if (err) console.log(err);
-            exercises = exercises.concat(res.rows);
-            client.query(tricepsQuery2, (err, res) => {
-              if (err) console.log(err);
-              exercises = exercises.concat(res.rows);
-              cb(exercises);
-            });
-          });
-        });
+      db.tx(t => {
+        const q1 = t.one(`SELECT * FROM biceps WHERE type = 'P' ORDER BY random() LIMIT 1`);
+        const q2 = t.one(`SELECT * FROM triceps WHERE type = 'P' ORDER BY random() LIMIT 1`);
+        const q3 = t.one(`SELECT * FROM biceps WHERE type = 'S' ORDER BY random() LIMIT 1`);
+        const q4 = t.one(`SELECT * FROM triceps WHERE type = 'S' ORDER BY random() LIMIT 1`);
+        return t.batch([q1, q2, q3, q4]);
+      })
+      .then((data) => {
+        cb(data);
+      })
+      .catch(error => {
+        console.log(error);
       });
     } else {
-      let bicepsQuery1 = `SELECT * FROM biceps WHERE type = 'P' ORDER BY random() LIMIT 1`
-      let tricepsQuery1 = `SELECT * FROM triceps WHERE type = 'P' ORDER BY random() LIMIT 1`
-      let bicepsQuery2 = `SELECT * FROM biceps WHERE type = 'S' ORDER BY random() LIMIT 1`
-      let tricepsQuery2 = `SELECT * FROM triceps WHERE type = 'S' ORDER BY random() LIMIT 1`
-      let bicepsQuery3 = `SELECT * FROM biceps WHERE type = 'A' ORDER BY random() LIMIT 1`
-      let tricepsQuery3 = `SELECT * FROM triceps WHERE type = 'A' ORDER BY random() LIMIT 1`
-
-      client.query(bicepsQuery1, (err, res) => {
-        if (err) console.log(err);
-        exercises = exercises.concat(res.rows);
-        client.query(tricepsQuery1, (err, res) => {
-          if (err) console.log(err);
-          exercises = exercises.concat(res.rows);
-          client.query(bicepsQuery2, (err, res) => {
-            if (err) console.log(err);
-            exercises = exercises.concat(res.rows);
-            client.query(tricepsQuery2, (err, res) => {
-              if (err) console.log(err);
-              exercises = exercises.concat(res.rows);
-              client.query(bicepsQuery3, (err, res) => {
-                if (err) console.log(err);
-                exercises = exercises.concat(res.rows);
-                client.query(tricepsQuery3, (err, res) => {
-                  if (err) console.log(err);
-                  exercises = exercises.concat(res.rows);
-                  cb(exercises);
-                });
-              });
-            });
-          });
-        });
+      db.tx(t => {
+        const q1 = t.one(`SELECT * FROM biceps WHERE type = 'P' ORDER BY random() LIMIT 1`);
+        const q2 = t.one(`SELECT * FROM triceps WHERE type = 'P' ORDER BY random() LIMIT 1`);
+        const q3 = t.one(`SELECT * FROM biceps WHERE type = 'S' ORDER BY random() LIMIT 1`);
+        const q4 = t.one(`SELECT * FROM triceps WHERE type = 'S' ORDER BY random() LIMIT 1`);
+        const q5 = t.one(`SELECT * FROM biceps WHERE type = 'A' ORDER BY random() LIMIT 1`);
+        const q6 = t.one(`SELECT * FROM triceps WHERE type = 'A' ORDER BY random() LIMIT 1`);
+        return t.batch([q1, q2, q3, q4, q5, q6]);
+      })
+      .then((data) => {
+        cb(data);
+      })
+      .catch(error => {
+        console.log(error);
       });
     }
   } else {
