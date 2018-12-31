@@ -1,11 +1,21 @@
 const { Client } = require('pg');
+const pgp = require('pg-promise')();
+const { user, host, database, password, port } = require('./../config.js');
 
-const client = new Client({
-  user: 'dev',
-  host: 'localhost',
-  database: 'fitness',
-  password: 'password',
-  port: 5432,
+const db = pgp({ 
+  user,
+  host, 
+  database,
+  password, 
+  port
+});
+
+const client = new Client({ 
+  user,
+  host, 
+  database,
+  password, 
+  port
 });
 
 client.connect();
@@ -16,81 +26,60 @@ client.on('error', (err) => {
 
 const getWorkout = (split, length, cb) => {
   let exercises = [];
+
   if (split === 'Abs') {
-    let query = `SELECT * FROM abs ORDER BY random() LIMIT ${length}`
-    client.query(query, (err, res) => {
-      if (err) console.log(err);
-      cb(res.rows);
+    db.tx(t => {
+      const q1 = t.many(`SELECT * FROM abs ORDER BY random() LIMIT $1`, [length]);
+      return t.batch([q1]);
+    })
+    .then(([data]) => {
+      cb(data);
+    })
+    .catch(error => {
+      console.log(error);
     });
   } else if (split === 'Fullbody') {
     if (length === '2') {
-      let chestQuery = `SELECT * FROM chest WHERE type = 'P' ORDER BY random() LIMIT 1`
-      let legsQuery = `SELECT * FROM legs WHERE type = 'P' ORDER BY random() LIMIT 1`
-
-      client.query(chestQuery, (err, res) => {
-        if (err) console.log(err);
-        exercises = exercises.concat(res.rows);
-        client.query(legsQuery, (err, res) => {
-          if (err) console.log(err);
-          exercises = exercises.concat(res.rows);
-          cb(exercises);
-        });
+      db.tx(t => {
+        const q1 = t.one(`SELECT * FROM chest WHERE type = 'P' ORDER BY random() LIMIT 1`);
+        const q2 = t.one(`SELECT * FROM legs WHERE type = 'P' ORDER BY random() LIMIT 1`);
+        return t.batch([q1, q2]);
+      })
+      .then((data) => {
+        cb(data);
+      })
+      .catch(error => {
+        console.log(error);
       });
     } else if (length === '4') {
-      let chestQuery = `SELECT * FROM chest WHERE type = 'P' ORDER BY random() LIMIT 1`
-      let legsQuery = `SELECT * FROM legs WHERE type = 'P' ORDER BY random() LIMIT 1`
-      let shouldersQuery = `SELECT * FROM shoulders WHERE type = 'P' ORDER BY random() LIMIT 1`
-      let backQuery = `SELECT * FROM back WHERE type = 'P' ORDER BY random() LIMIT 1`
-
-      client.query(chestQuery, (err, res) => {
-        if (err) console.log(err);
-        exercises = exercises.concat(res.rows);
-        client.query(legsQuery, (err, res) => {
-          if (err) console.log(err);
-          exercises = exercises.concat(res.rows);
-          client.query(shouldersQuery, (err, res) => {
-            if (err) console.log(err);
-            exercises = exercises.concat(res.rows);
-            client.query(backQuery, (err, res) => {
-              if (err) console.log(err);
-              exercises = exercises.concat(res.rows);
-              cb(exercises);
-            });
-          });
-        });
+      db.tx(t => {
+        const q1 = t.one(`SELECT * FROM chest WHERE type = 'P' ORDER BY random() LIMIT 1`);
+        const q2 = t.one(`SELECT * FROM legs WHERE type = 'P' ORDER BY random() LIMIT 1`);
+        const q3 = t.one(`SELECT * FROM shoulders WHERE type = 'P' ORDER BY random() LIMIT 1`);
+        const q4 = t.one(`SELECT * FROM back WHERE type = 'P' ORDER BY random() LIMIT 1`);
+        return t.batch([q1, q2, q3, q4]);
+      })
+      .then((data) => {
+        cb(data);
+      })
+      .catch(error => {
+        console.log(error);
       });
     } else {
-      let chestQuery = `SELECT * FROM chest WHERE type = 'P' ORDER BY random() LIMIT 1`
-      let legsQuery = `SELECT * FROM legs WHERE type = 'P' ORDER BY random() LIMIT 1`
-      let shouldersQuery = `SELECT * FROM shoulders WHERE type = 'P' ORDER BY random() LIMIT 1`
-      let backQuery = `SELECT * FROM back WHERE type = 'P' ORDER BY random() LIMIT 1`
-      let tricepsQuery = `SELECT * FROM triceps WHERE type = 'P' ORDER BY random() LIMIT 1`
-      let bicepsQuery = `SELECT * FROM biceps WHERE type = 'P' ORDER BY random() LIMIT 1`
-
-      client.query(chestQuery, (err, res) => {
-        if (err) console.log(err);
-        exercises = exercises.concat(res.rows);
-        client.query(legsQuery, (err, res) => {
-          if (err) console.log(err);
-          exercises = exercises.concat(res.rows);
-          client.query(shouldersQuery, (err, res) => {
-            if (err) console.log(err);
-            exercises = exercises.concat(res.rows);
-            client.query(backQuery, (err, res) => {
-              if (err) console.log(err);
-              exercises = exercises.concat(res.rows);
-              client.query(tricepsQuery, (err, res) => {
-                if (err) console.log(err);
-                exercises = exercises.concat(res.rows);
-                client.query(bicepsQuery, (err, res) => {
-                  if (err) console.log(err);
-                  exercises = exercises.concat(res.rows);
-                  cb(exercises);
-                });
-              });
-            });
-          });
-        });
+      db.tx(t => {
+        const q1 = t.one(`SELECT * FROM chest WHERE type = 'P' ORDER BY random() LIMIT 1`);
+        const q2 = t.one(`SELECT * FROM legs WHERE type = 'P' ORDER BY random() LIMIT 1`);
+        const q3 = t.one(`SELECT * FROM shoulders WHERE type = 'P' ORDER BY random() LIMIT 1`);
+        const q4 = t.one(`SELECT * FROM back WHERE type = 'P' ORDER BY random() LIMIT 1`);
+        const q5 = t.one(`SELECT * FROM triceps WHERE type = 'P' ORDER BY random() LIMIT 1`);
+        const q6 = t.one(`SELECT * FROM biceps WHERE type = 'P' ORDER BY random() LIMIT 1`);
+        return t.batch([q1, q2, q3, q4, q5, q6]);
+      })
+      .then((data) => {
+        cb(data);
+      })
+      .catch(error => {
+        console.log(error);
       });
     }
   } else if (split === 'Arms') {
